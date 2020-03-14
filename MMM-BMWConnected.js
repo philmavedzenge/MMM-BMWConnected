@@ -2,7 +2,7 @@ Module.register('MMM-BMWConnected', {
 
   defaults: {
     apiBase: "www.bmw-connecteddrive.co.uk",
-    refresh: 15,
+    refresh: 20,
     vehicleAngle: 300,
     distance: "miles",
     debug: false
@@ -31,6 +31,13 @@ Module.register('MMM-BMWConnected', {
   getInfo: function () {
     clearTimeout(this.timer);
     this.timer = null;
+   
+    //added this part to rotate the car image
+    this.config.vehicleAngle = (this.config.vehicleAngle+50)%360;
+    console.log("Car angle "+this.config.vehicleAngle);
+    this.sendSocketNotification('MMM-BMWCONNECTED-CONFIG', this.config);
+    //end rotate car image
+    
     this.sendSocketNotification("MMM-BMWCONNECTED-GET", {
       instanceId: this.identifier
     });
@@ -108,7 +115,7 @@ Module.register('MMM-BMWConnected', {
     if (info.connectorStatus == "CONNECTED") {
       plugged.appendChild(this.faIconFactory("fa-bolt"));
     } else {
-      plugged.appendChild(this.faIconFactory("fa-plug"));
+      plugged.appendChild(this.faIconFactory("fa-plugjk"));//added an icon that's not available so that it doesnt show on screen
     }
     carContainer.appendChild(plugged);
 
@@ -133,20 +140,31 @@ Module.register('MMM-BMWConnected', {
         battery.appendChild(this.faIconFactory("fa-battery-three-quarters"));
         break;
       default:
-        battery.appendChild(this.faIconFactory("fa-battery-full"));
+        battery.appendChild(this.faIconFactory("fa-battery-fullz"));//added an icon that's not available so that it doesnt show on screen
         break;
     }
 
     carContainer.appendChild(battery);
     wrapper.appendChild(carContainer);
-
+    
+    var fuelcolor = "";
+    if(info.fuelLitres > 30){
+        fuelcolor = "green";
+    }else {
+        if(info.fuelLitres <= 30 && info.fuelLitres > 10){
+            fuelcolor = "orange";
+        }else{
+        fuelcolor = "red";
+    }
+}
+    
     carContainer = document.createElement("div");
     carContainer.classList.add("bmw-container");
-    var elecRange = document.createElement("span");
-    elecRange.classList.add("elecRange");
-    elecRange.appendChild(this.faIconFactory("fa-charging-station"));
-    elecRange.appendChild(document.createTextNode(info.electricRange + " " + distanceSuffix));
-    carContainer.appendChild(elecRange);
+    var fuelLeft = document.createElement("span");
+    fuelLeft.classList.add(fuelcolor);
+    fuelLeft.appendChild(this.faIconFactory("fa-tachometer-alt")); 
+    fuelLeft.appendChild(document.createTextNode(info.fuelLitres + "  litres" ));
+    carContainer.appendChild(fuelLeft);
 
     var fuelRange = document.createElement("span");
     fuelRange.classList.add("fuelRange");
@@ -154,7 +172,24 @@ Module.register('MMM-BMWConnected', {
     fuelRange.appendChild(document.createTextNode(info.fuelRange + " " + distanceSuffix));
     carContainer.appendChild(fuelRange);
     wrapper.appendChild(carContainer);
-
+ 
+    //display if windows or sunroof are open
+    var windows = "windows : ";
+                      
+    if (info.windowDriverFront === "CLOSED" && info.windowPassengerFront === "CLOSED" && info.windowDriverRear === "CLOSED" && info.windowPassengerRear === "CLOSED"){
+        windows = "closed";
+        } 
+    else{
+        windows = "open";
+    }
+    
+    var sunroof = "sunroof : ";
+    if (info.sunroof === "CLOSED"){
+        sunroof = "closed";
+    }else{
+        sunroof = "open";
+    }  
+        
     //
     carContainer = document.createElement("div");
     carContainer.classList.add("bmw-container");
@@ -166,9 +201,22 @@ Module.register('MMM-BMWConnected', {
     if (this.config.debug) {
       lastUpdateText += " [" + info.unitOfLength + "]";
     }
+    
+    if(windows === "open" && sunroof === "open"){
+        lastUpdateText = "sunroof and windows open";
+    }
+    if(windows === "open" && sunroof === "closed"){
+            lastUpdateText = "windows open";
+    }
+    if(windows === "closed" && sunroof === "open"){
+            lastUpdateText = "sunroof open";
+    }
+    
     updated.appendChild(document.createTextNode(lastUpdateText));
     carContainer.appendChild(updated);
     wrapper.appendChild(carContainer);
+
+  
 
     //
 

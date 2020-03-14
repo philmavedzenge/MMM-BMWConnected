@@ -44,7 +44,7 @@ module.exports = NodeHelper.create({
                   try {
                     var json = JSON.parse(data);
                     var attributes = json.attributesMap;
-
+                    console.log(attributes);
                     self.bmwInfo = {
                       updateTime: moment.unix(attributes.updateTime_converted_timestamp / 1000).format(),
                       doorLock: attributes.door_lock_state,
@@ -54,6 +54,12 @@ module.exports = NodeHelper.create({
                       connectorStatus: attributes.connectorStatus,
                       vin: vin,
                       chargingLevelHv: Number(attributes.chargingLevelHv).toFixed(),
+                      fuelLitres: Number(attributes.remaining_fuel).toFixed(),
+                      sunroof: attributes.sunroof_state,
+                      windowDriverFront: attributes.window_driver_front,
+                      windowPassengerFront: attributes.window_passenger_front,
+                      windowDriverRear: attributes.window_driver_rear,
+                      windowPassengerRear: attributes.window_passenger_rear,
                       imageUrl: null,
                       unitOfLength: attributes.unitOfLength
                     }

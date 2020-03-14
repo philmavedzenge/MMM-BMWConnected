@@ -1,6 +1,6 @@
 .MMM-BMWConnected .bmw-container {
   width: 320px;
-  line-height: 1.50;
+  line-height: 1.70;
   font-size: 20px;
   margin: 0;
   padding: 0;
@@ -11,7 +11,7 @@
 
 .MMM-BMWConnected .bmw-container img {
   position: absolute;
-  top: -215px;
+  top: -220px;
   left: -5px;
   width: 320px;
 }
@@ -33,4 +33,16 @@
 
 .MMM-BMWConnected .bmw-container .fuelRange {
   float: right;
+}
+
+.MMM-BMWConnected .bmw-container .green {
+  color: green;
+}
+
+.MMM-BMWConnected .bmw-container .orange {
+  color: orange;
+}
+
+.MMM-BMWConnected .bmw-container .red {
+  color:red;
 }
