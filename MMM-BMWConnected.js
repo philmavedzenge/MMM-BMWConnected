@@ -189,7 +189,14 @@ Module.register('MMM-BMWConnected', {
     }else{
         sunroof = "open";
     }  
-        
+
+    var boot = "";
+    if (info.boot === "CLOSED"){
+        boot = "closed";
+    }else{
+        boot = "open";
+    } 
+    
     //
     carContainer = document.createElement("div");
     carContainer.classList.add("bmw-container");
@@ -202,14 +209,30 @@ Module.register('MMM-BMWConnected', {
       lastUpdateText += " [" + info.unitOfLength + "]";
     }
     
-    if(windows === "open" && sunroof === "open"){
+    switch (true) {
+      case (windows === "open" && sunroof === "open" && boot === "open"):
+        lastUpdateText = "sunroof , boot and windows open";
+        break;
+      case (windows === "open" && sunroof === "open" && boot === "closed"):
         lastUpdateText = "sunroof and windows open";
-    }
-    if(windows === "open" && sunroof === "closed"){
-            lastUpdateText = "windows open";
-    }
-    if(windows === "closed" && sunroof === "open"){
-            lastUpdateText = "sunroof open";
+        break;
+      case (windows === "open" && sunroof === "closed" && boot === "open"):
+        lastUpdateText = "boot and windows open";
+        break;
+      case (windows === "closed" && sunroof === "open" && boot === "open"):
+        lastUpdateText = "boot and sunroof open";
+        break;
+      case (windows === "open" && sunroof === "closed" && boot === "closed"):
+        lastUpdateText = "windows open";
+        break;
+      case (windows === "closed" && sunroof === "closed" && boot === "open"):
+        lastUpdateText = "boot open";
+        break;
+      case (windows === "closed" && sunroof === "open" && boot === "closed"):
+        lastUpdateText = "sunroof open";
+        break;
+      default:
+        break;
     }
     
     updated.appendChild(document.createTextNode(lastUpdateText));

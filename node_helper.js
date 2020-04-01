@@ -60,6 +60,7 @@ module.exports = NodeHelper.create({
                       windowPassengerFront: attributes.window_passenger_front,
                       windowDriverRear: attributes.window_driver_rear,
                       windowPassengerRear: attributes.window_passenger_rear,
+                      boot: attributes.trunk_state,
                       imageUrl: null,
                       unitOfLength: attributes.unitOfLength
                     }
