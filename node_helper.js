@@ -20,7 +20,9 @@ module.exports = NodeHelper.create({
 
       var credConfig = {
         'username': self.config.email,
-        'password': self.config.password
+        'password': self.config.password,
+        'country' : self.config.country,
+        'region' : self.config.region
       }
 
       tokenmanager.initialize(credConfig,

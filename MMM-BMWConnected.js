@@ -35,6 +35,7 @@ Module.register('MMM-BMWConnected', {
     //added this part to rotate the car image
     this.config.vehicleAngle = (this.config.vehicleAngle+50)%360;
     console.log("Car angle "+this.config.vehicleAngle);
+    console.log("Region "+this.config.region);
     this.sendSocketNotification('MMM-BMWCONNECTED-CONFIG', this.config);
     //end rotate car image
     
@@ -243,11 +244,12 @@ Module.register('MMM-BMWConnected', {
 
     //
 
-    carContainer = document.createElement("div");
+    //carContainer = document.createElement("div");
     carContainer.classList.add("bmw-container");
     var imageContainer = document.createElement("span");
     var imageObject = document.createElement("img");
     imageObject.setAttribute('src', info.imageUrl);
+    //imageObject.setAttribute('src', 'https://www.openstreetmap.org/?mlat=-26.14244&mlon=27.94451#map=16/-26.14244/27.94451');
     imageContainer.appendChild(imageObject);
     carContainer.appendChild(imageContainer);
 
