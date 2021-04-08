@@ -30,7 +30,7 @@ Enter these details in the config.js for your MagicMirror installation:
         config: {
             email: "yourBMWConnectEmail",
             password: "StrongPassword",
-	    apiBase:"www.bmw-connecteddrive.co.za", //this works for me in South Africa not sure what other regions would be
+	    apiBase: "www.bmw-connecteddrive.co.za", //this works for me in South Africa not sure what other regions would be
             distance: "km",
             refresh: 15,
             vehicleAngle: 10,
