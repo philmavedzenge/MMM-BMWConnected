@@ -1,7 +1,7 @@
 Module.register('MMM-BMWConnected', {
 
   defaults: {
-    apiBase: "www.bmw-connecteddrive.co.uk",
+    apiBase: "www.bmw-connecteddrive.co.za",
     refresh: 20,
     vehicleAngle: 300,
     distance: "miles",
