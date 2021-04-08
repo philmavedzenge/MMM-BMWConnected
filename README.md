@@ -58,6 +58,10 @@ The module has a few configuration options:
       <td><code>password</code></td>
       <td>Your password for the BMW Connected Drive platform.<br /><br /><strong>Default: </strong><code>undefined</code></td>
     </tr>
+        <tr>
+      <td><code>apiBase</code></td>
+      <td>apiBase url for your country.<br /><br /><strong>Default: </strong><code>www.bmw-connecteddrive.co.za</code></td>
+    </tr>
             <tr>
       <td><code>country</code></td>
       <td>Your BMWConnect registration country.<br /><br /><strong>Check: </strong><code>https://www.bmw-connecteddrive.com/</code></td>
