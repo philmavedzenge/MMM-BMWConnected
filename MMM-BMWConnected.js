@@ -185,10 +185,10 @@ Module.register('MMM-BMWConnected', {
     }
     
     var sunroof = "sunroof : ";
-    if (info.sunroof === "CLOSED"){
-        sunroof = "closed";
-    }else{
+    if (info.sunroof === "OPEN"){
         sunroof = "open";
+    }else{
+        sunroof = "closed";
     }  
 
     var boot = "";
